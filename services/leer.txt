@@ -1,0 +1,4 @@
+Aqui va lo que tiene que ver con la interaccion con la api
+algo asi como un dao, pero de la api,
+tambien se encarga de validar los datos,
+gestiona errores y permite que siga funcionando sin internet. 

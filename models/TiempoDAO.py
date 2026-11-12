@@ -8,21 +8,6 @@ class TiempoDAO:
         conn = Database().get_connection()
         try:
             cursor : Cursor = conn.cursor()
-            cursor.execute(
-                "SELECT 1 FROM empleado WHERE rut = ?",
-                (tiempo.id_empleado,),
-            )
-            if cursor.fetchone() is None:
-                print(f"No existe un empleado con RUT {tiempo.id_empleado}.")
-                return False
-
-            cursor.execute(
-                "SELECT 1 FROM proyecto WHERE id_proyecto = ?",
-                (tiempo.id_proyecto,),
-            )
-            if cursor.fetchone() is None:
-                print(f"No existe un proyecto con ID {tiempo.id_proyecto}.")
-                return False
             cursor.execute("""INSERT INTO tiempo
                            (fecha, 
                            hora_entrada, 
@@ -42,16 +27,27 @@ class TiempoDAO:
             return False
         finally:
             conn.close()
-    
+
+    @staticmethod
+    def crear_tiempo(fila)-> Tiempo:
+        return Tiempo(
+            fila["id_tiempo"],
+            fila["fecha"],
+            fila["hora_entrada"],
+            fila["hora_salida"],
+            fila["id_empleado"],
+            fila["id_proyecto"]
+        )
     @staticmethod
     def obtener_tiempo_id(id_tiempo: int):
         conn = Database().get_connection()
         try:
             cursor : Cursor = conn.cursor()
-            cursor.execute("""SELECT * FROM tiempo WHERE id_tiempo = ?""",
+            cursor.execute("""SELECT id_tiempo, fecha, hora_entrada, hora_salida, id_empleado, id_proyecto
+                           FROM tiempo WHERE id_tiempo = ?""",
                            (id_tiempo,))
             tiempo_data = cursor.fetchone() #corregir para que devuelva
-            return tiempo_data
+            return TiempoDAO.crear_tiempo(tiempo_data) if tiempo_data else None
         except Exception as e:
             print(f"Error al obtener tiempo en BD: {e}")
             return False
@@ -63,9 +59,8 @@ class TiempoDAO:
         conn = Database().get_connection()
         try:
             cursor : Cursor = conn.cursor()
-            cursor.execute("""SELECT * FROM tiempo""")
-            tiempo_data = cursor.fetchall() #corregir para que devuelva
-            return tiempo_data
+            cursor.execute("""SELECT id_tiempo, fecha, hora_entrada, hora_salida, id_empleado, id_proyecto FROM tiempo""")
+            return [TiempoDAO.crear_tiempo(fila) for fila in cursor.fetchall()]
         except Exception as e:
             print(f"Error al obtener tiempo en BD: {e}")
             return False

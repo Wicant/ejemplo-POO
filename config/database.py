@@ -18,7 +18,7 @@ class Database:
         """
         Retorna una conexión a la base de datos SQLite
         """
-        conn=sqlite3.connect(self._db_path) #path = ubicacion
+        conn=sqlite3.connect(self._db_path)
         conn.row_factory = sqlite3.Row #Permite acceder a las columnas por nombre
         conn.execute("PRAGMA foreign_keys = ON")
         return conn
@@ -100,10 +100,29 @@ class Database:
                     nombre TEXT NOT NULL,
                     descripcion TEXT NOT NULL,
                     fecha_inicio DATE NOT NULL,
-                    fecha_fin DATE NOT NULL
+                    fecha_fin DATE NOT NULL,
+                    ubicacion text NOT NULL
                 )
                 """
             )
+            
+            #cursor.execute(
+                #"""
+                #CREATE TABLE IF NOT EXISTS clima(
+                    #id_clima                        INTEGER PRIMARY KEY AUTOINCREMENT,
+                    #id_proyecto                     INTEGER,
+                    #ubicacion                       TEXT, 
+                    #temperatura_minima              REAL NOT NULL,
+                    #temperatura_maxima              REAL NOT NULL, 
+                    #humedad                         INTEGER NOT NULL,
+                    #condicion                       TEXT NOT NULL,
+                    #probabilidad_lluvia             INTEGER,
+                    #fecha_consulta                  DATETIME NOT NULL,
+                    #fecha_pronostico                DATETIME NOT NULL,
+                    #FOREIGN KEY (id_proyecto) REFERENCES proyecto(id_proyecto) ON DELETE SET NULL                   
+                #)
+                #""
+            #)
             conn.commit()
         except sqlite3.Error as e: 
             print(f"Error al inicializar la base de datos: {e}")

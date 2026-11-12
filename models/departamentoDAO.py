@@ -1,7 +1,7 @@
 from sqlite3 import Cursor
 from config.database import Database
-#from models.Empleado import empleado
 from models.departamento import Departamento
+
 
 class DepartamentoDAO: #primer bsoquejo
     """
@@ -35,6 +35,15 @@ class DepartamentoDAO: #primer bsoquejo
             conn.close()
     
     @staticmethod
+    def crear_depto(fila)->Departamento:
+        return Departamento(
+            fila["id_departamento"],
+            fila["nombre"],
+            fila["gerente"],
+            fila["presupuesto"]
+        )
+        
+    @staticmethod
     def obtener_todos_departamentos() -> list[Departamento]:
         conn = Database().get_connection()
         try:
@@ -44,17 +53,7 @@ class DepartamentoDAO: #primer bsoquejo
                 FROM departamento
                 ORDER BY id_departamento
             """)
-            filas = cursor.fetchall()
-
-            return [
-                Departamento(
-                    fila["id_departamento"],
-                    fila["nombre"],
-                    fila["gerente"],
-                    fila["presupuesto"],
-                )
-                for fila in filas
-            ]
+            return [DepartamentoDAO.crear_depto(fila) for fila in cursor.fetchall()]
         except Exception as e:
             print(f"Error al obtener departamentos de BD: {e}")
             return []
@@ -67,7 +66,6 @@ class DepartamentoDAO: #primer bsoquejo
         Obtiene un departamento de la base de datos por su ID.
         """
         conn = Database().get_connection()
-        departamentos = []
         try:
             cursor: Cursor = conn.cursor()
             cursor.execute(
@@ -78,20 +76,12 @@ class DepartamentoDAO: #primer bsoquejo
                 (id_departamento,),
             )
             fila = cursor.fetchone()
-            if fila is None:
-                return None
-
-            return Departamento(
-                fila["id_departamento"],
-                fila["nombre"],
-                fila["gerente"],
-                fila["presupuesto"],
-            )
+            return DepartamentoDAO.crear_depto(fila) if fila else None 
         except Exception as e:
             print(f"Error al obtener departamento por ID de BD: {e}")
         finally:
             conn.close()
-        return departamentos
+
     
     @staticmethod #revisar
     def actualizar_departamento(departamento: Departamento) -> bool:
@@ -108,7 +98,10 @@ class DepartamentoDAO: #primer bsoquejo
                 WHERE id_departamento = ?
                 """, 
                     (
-                        departamento.nombre, departamento.gerente, departamento.presupuesto, departamento.id_departamento
+                        departamento.nombre, 
+                        departamento.gerente, 
+                        departamento.presupuesto, 
+                        departamento.id_departamento
                     )
                 )
             conn.commit()

@@ -27,6 +27,7 @@ class DepartamentoController:
             elif opcion == "4":
                 DepartamentoView.actualizar_departamento()
             elif opcion == "5":
+                DepartamentoView.listar_departamentos()
                 DepartamentoView.eliminar_departamento()
             elif opcion == "0":
                 return

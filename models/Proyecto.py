@@ -6,12 +6,13 @@ class Proyecto:
     esto despues estara conectado con la base de datos de tiempo para gestionar estos
     """
     
-    def __init__(self, id_proyecto:int,nombre:str, descripcion:str, fecha_inicio:str,fecha_fin:str):
+    def __init__(self, id_proyecto:int,nombre:str, descripcion:str, fecha_inicio:str,fecha_fin:str,ubicacion:str):
         self.id_proyecto = id_proyecto
         self.nombre = nombre
         self.descripcion = descripcion
         self.fecha_inicio = fecha_inicio
         self.fecha_fin = fecha_fin
+        self.ubicacion = ubicacion
         
     def __str__(self):
         return f"{self.nombre}: {self.descripcion}"
@@ -27,6 +28,7 @@ class Proyecto:
         if not isinstance(value, int) or value <= 0:
             raise ValueError("El ID del departamento debe ser un número entero mayor a 0.")
         self._id_proyecto = value
+        return self._id_proyecto
 
     
     @property
@@ -76,3 +78,13 @@ class Proyecto:
             raise ValueError("La fecha de inicio del proyecto no puede estar vacía")
         self._fecha_fin = fecha_fin.strip()
         return self._fecha_fin
+    
+    @property
+    def ubicacion(self):
+        return self._ubicacion
+    @ubicacion.setter
+    def ubicacion(self, ubicacion: str) -> None:
+        if not isinstance(ubicacion, str) or not ubicacion.strip():
+            raise ValueError("La ubicacion no puede estar vacia")
+        self._ubicacion = ubicacion.strip()
+        return self._ubicacion

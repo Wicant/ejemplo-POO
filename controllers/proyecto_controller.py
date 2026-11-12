@@ -1,5 +1,5 @@
 from views.vista_proyecto import ProyectoView
-
+from views.vista_clima import ClimaView
 
 class ProyectoController:
     @staticmethod
@@ -21,12 +21,15 @@ class ProyectoController:
             if opcion == "1":
                 ProyectoView.listar_proyectos()
             elif opcion == "2":
-                ProyectoView.agregar_proyecto()
+                proyecto = ProyectoView.agregar_proyecto()
+                if proyecto:
+                    ClimaView.consultar_clima(proyecto.ubicacion)
             elif opcion == "3":
                 ProyectoView.buscar_proyecto()
             elif opcion == "4":
                 ProyectoView.actualizar_proyecto()
             elif opcion == "5":
+                ProyectoView.listar_proyectos()
                 ProyectoView.eliminar_proyecto()
             elif opcion == "0":
                 return

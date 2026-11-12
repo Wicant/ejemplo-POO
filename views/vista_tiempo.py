@@ -12,7 +12,12 @@ class TiempoView:
 
         print("\n--- LISTA DE TIEMPOS ---")
         for t in tiempos:
-            print(f"ID: {t.id_tiempo} | Fecha: {t.fecha} | Entrada: {t.hora_entrada} | Salida: {t.hora_salida} | ID Empleado: {t.id_empleado} | ID Proyecto: {t.id_proyecto}")
+            print(f"ID: {t.id_tiempo} |"
+                  f"Fecha: {t.fecha} | " 
+                  f"Entrada: {t.hora_entrada} |" 
+                  f"Salida: {t.hora_salida} |" 
+                  f"ID Empleado: {t.id_empleado} |" 
+                  f"ID Proyecto: {t.id_proyecto}")
 
     @staticmethod
     def agregar_tiempo():

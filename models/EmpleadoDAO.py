@@ -47,14 +47,12 @@ class EmpleadoDAO:
         return empleado(
             fila["id_departamento"],
             fila["sueldo"],
-            inicio_contrato,
             fila["rut"],
             fila["nombre"],
             fila["direccion"],
             fila["telefono"],
             fila["correo"],
             fila["user"],
-            fila["password"],
             bool(fila["rol_admin"]),
             fila["estado"],
         )
@@ -69,8 +67,8 @@ class EmpleadoDAO:
             cursor: Cursor = conn.cursor()
             cursor.execute(
                 """
-                SELECT rut, nombre, direccion, telefono, correo, user, password,
-                       id_departamento, sueldo, inicio_contrato, rol_admin, estado
+                SELECT rut, nombre, direccion, telefono, correo, user,
+                       id_departamento, sueldo, rol_admin, estado
                 FROM empleado
                 ORDER BY nombre
                 """
@@ -90,7 +88,7 @@ class EmpleadoDAO:
             cursor: Cursor = conn.cursor()
             cursor.execute(
                 """
-                SELECT rut, nombre, correo, d.nombre, sueldo, inicio_contrato, estado 
+                SELECT rut, nombre, correo, nombre, sueldo, inicio_contrato, estado 
                 FROM empleado e, departamento d 
                 WHERE e.id_departamento = d.id_departamento 
                 AND estado = ?

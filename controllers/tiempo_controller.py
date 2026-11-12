@@ -27,6 +27,7 @@ class TiempoController:
             elif opcion == "4":
                 TiempoView.actualizar_tiempo()
             elif opcion == "5":
+                TiempoView.listar_tiempos()
                 TiempoView.eliminar_tiempo()
             elif opcion == "0":
                 return

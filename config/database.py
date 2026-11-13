@@ -40,16 +40,25 @@ class Database:
                 direccion TEXT NOT NULL,
                 telefono TEXT NOT NULL,
                 correo TEXT NOT NULL,
-                user TEXT NOT NULL,
-                password TEXT NOT NULL,
-                id_departamento INTEGER NOT NULL, --area de trabajo = departamento --area_trabajo
+                id_departamento INTEGER, --area de trabajo = departamento --area_trabajo
                 sueldo INTEGER NOT NULL,
                 inicio_contrato DATE NOT NULL,
-                rol_admin BOOLEAN NOT NULL,
                 estado TEXT NOT NULL,
                 FOREIGN KEY (id_departamento) REFERENCES departamento(id_departamento) ON DELETE SET NULL
             )
             """)
+            
+            cursor.execute(
+                """CREATE TABLE IF NOT EXISTS usuario(
+                 id_usuario INTEGER PRIMARY KEY AUTOINCREMENT,
+                 rut_empleado TEXT NOT NULL UNIQUE,
+                 username TEXT NOT NULL UNIQUE,
+                 password_hash TEXT NOT NULL,
+                 rol_admin BOOLEAN NOT NULL DEFAULT 0,
+                 FOREIGN KEY (rut_empleado) REFERENCES empleado(rut) ON DELETE CASCADE  
+                )
+                """
+            )
 
             #tabla informe (id_informe, fecha, tipo, formato)
             cursor.execute("""
@@ -59,7 +68,7 @@ class Database:
                 tipo TEXT NOT NULL,
                 formato TEXT NOT NULL,
                 id_usuario INTEGER NOT NULL, --aqui si o si debe ser un administrador
-                FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) ON DELETE SET NULL
+                FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) ON DELETE RESTRICT
                     
             )
             """)

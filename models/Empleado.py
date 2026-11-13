@@ -4,23 +4,21 @@ from models.persona import persona
 ESTADO = ["activo", "inactivo", "vacaciones", "suspendido"] 
 
 class empleado(persona):
-    def __init__(self,id_departamento:int,sueldo:int,inicio_contrato:date,rut:str,
-                 nombre:str,direccion:str,telefono:str,correo:str,user:str,password:str, rol_admin:bool, estado:str):
-        super().__init__(rut,nombre,direccion,telefono,correo,
-                         user,password)
+    def __init__(self,id_departamento:int | None ,sueldo:int,inicio_contrato:date,rut:str,
+                 nombre:str,direccion:str,telefono:str,correo:str, estado:str):
+        super().__init__(rut,nombre,direccion,telefono,correo)
         self._id_departamento = id_departamento
         self._sueldo = sueldo
-        self._inicio_contrato = inicio_contrato
-        self._rol_admin = rol_admin
+        self._inicio_contrato = inicio_contrato 
         self._estado = estado  # Estado inicial del empleado
         
     @property
-    def id_departamento(self)-> int:
+    def id_departamento(self)-> int | None:
         return self._id_departamento
     
     @id_departamento.setter
-    def id_departamento (self,valor:int)-> None:
-        if not isinstance(valor, int) or valor < 0:
+    def id_departamento (self,valor:int | None)-> None:
+        if valor is not None and (not isinstance(valor, int) or valor < 0):
             raise ValueError("Identificador de area de trabajo debe ser un número positivo")
         self._id_departamento = valor
     
@@ -45,16 +43,6 @@ class empleado(persona):
         self._inicio_contrato = valor
 
     @property
-    def rol_admin(self)->bool:
-        return self._rol_admin
-
-    @rol_admin.setter
-    def rol_admin(self, valor:bool)-> None:
-        if not isinstance(valor, bool):
-            raise ValueError("El rol de administrador debe ser un booleano")
-        self._rol_admin = valor
-
-    @property
     def estado(self) -> str:
         return self._estado
 
@@ -75,9 +63,5 @@ class empleado(persona):
             f"ID de departamento: {self.id_departamento}\n"
             f"Sueldo: {self.sueldo}\n"
             f"Inicio de contrato: {self.inicio_contrato}\n"
-            f"Administrador: {'Sí' if self.rol_admin else 'No'}\n"
             f"Estado: {self.estado}"
         )
-    
-    def __repr__(self) -> str:
-            return f"Empleado:(id_departamento={self.id_departamento}, sueldo={self.sueldo}, inicio_contrato={self.inicio_contrato}, rol_admin={self.rol_admin}, estado={self.estado})"

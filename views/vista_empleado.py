@@ -3,7 +3,6 @@ from datetime import date
 
 from models.Empleado import ESTADO, empleado
 from models.EmpleadoDAO import EmpleadoDAO
-from views.utils import leer_numero
 
 
 class VistaEmpleado:
@@ -55,7 +54,6 @@ class VistaEmpleado:
         )
         persona.sueldo = VistaEmpleado._leer_entero("Sueldo", persona.sueldo)
         persona.inicio_contrato = VistaEmpleado._leer_fecha(persona.inicio_contrato)
-        persona.rol_admin = VistaEmpleado._leer_rol(persona.rol_admin)
         persona.estado = VistaEmpleado._leer_estado(persona.estado)
 
         confirmar = input("\n¿Guardar los cambios? (s/n): ").strip().lower()
@@ -83,12 +81,10 @@ class VistaEmpleado:
             direccion = input("Dirección: ").strip()
             telefono = input("Teléfono: ").strip()
             correo = input("Correo: ").strip()
-            user = input("Usuario: ").strip()
-            password = input("Contraseña: ").strip()
-            id_departamento = int(input("ID departamento: ").strip())
+            valor_departamento = input("ID departamento (opcional): ").strip()
+            id_departamento = int(valor_departamento) if valor_departamento else None
             sueldo = int(input("Sueldo: ").strip())
-            inicio_contrato = input("Inicio de contrato (AAAA-MM-DD): ").strip()
-            rol_admin = input("¿Es administrador? (s/n): ").strip().lower()
+            inicio_contrato = date.fromisoformat(input("Inicio de contrato (AAAA-MM-DD): ").strip())
             estado = input(f"Estado ({', '.join(ESTADO)}): ").strip().lower()
         except ValueError as e:
             print(f"Error: {e}")
@@ -104,9 +100,6 @@ class VistaEmpleado:
                 direccion=direccion,
                 telefono=telefono,
                 correo=correo,
-                user=user,
-                password=password,
-                rol_admin=rol_admin,
                 estado=estado
             )
 
@@ -127,7 +120,7 @@ class VistaEmpleado:
         return valor or actual
 
     @staticmethod
-    def _leer_entero(etiqueta: str, actual: int) -> int:
+    def _leer_entero(etiqueta: str, actual: int| None) -> int | None:
         while True:
             valor = input(f"{etiqueta} [{actual}]: ").strip()
             if not valor:
@@ -152,21 +145,6 @@ class VistaEmpleado:
                 print("Fecha inválida. Use el formato AAAA-MM-DD.")
 
     @staticmethod
-    def _leer_rol(actual: bool) -> bool:
-        valor_actual = "s" if actual else "n"
-        while True:
-            valor = input(
-                f"¿Es administrador? (s/n) [{valor_actual}]: "
-            ).strip().lower()
-            if not valor:
-                return actual
-            if valor in ("s", "si", "sí"):
-                return True
-            if valor in ("n", "no"):
-                return False
-            print("Responda s o n.")
-
-    @staticmethod
     def _leer_estado(actual: str) -> str:
         opciones = ", ".join(ESTADO)
         while True:
@@ -186,7 +164,6 @@ class VistaEmpleado:
             print(f"Nombre: {empleado.nombre}")
             print(f"telefono: {empleado.telefono}")
             print(f"correo: {empleado.correo}")
-            print(f"User: {empleado.user}")
             print(f"ID_departamento: {empleado.id_departamento}")
             print(f"Sueldo: {empleado.sueldo}")
             print(f"Inicio de contrato: {empleado.inicio_contrato}")

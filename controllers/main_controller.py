@@ -4,11 +4,19 @@ from controllers.departamento_controller import DepartamentoController
 from controllers.proyecto_controller import ProyectoController
 from controllers.tiempo_controller import TiempoController
 from controllers.informe_controller import InformeController
+from controllers.auth_controller import AuthController
 
 
 class MainController:
     @staticmethod
     def iniciar() -> None:
+        auth = AuthController()
+        usuario = auth.iniciar_sesion()
+
+        if usuario is None:
+            print("\nCerrando aplicación...")
+            return
+        
         while True:
             opcion = MainView.mostrar_menu()
 

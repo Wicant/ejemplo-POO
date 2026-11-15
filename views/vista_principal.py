@@ -5,7 +5,7 @@ class MainView:
     @staticmethod
     def mostrar_menu() -> int:
         print("\n" + "="*30)
-        print("    SISTEMA DE GESTION DE EMPLEADOS - MENÚ PRINCIPAL")
+        print("    ECOTECH - MENÚ PRINCIPAL")
         print("="*30)
         print("1.- Gestionar Empleados")
         print("2.- Gestión de Departamentos")

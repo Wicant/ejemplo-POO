@@ -19,6 +19,12 @@ class Settings:
     ENABLE_OFFLINE_FALLBACK: bool = os.getenv("ENABLE_OFFLINE_FALLBACK", "True").lower() in ("true", "1", "yes")
     
     # Parámetros para inicio de sesión y semilla de usuario administrador
-    ADMIN_INITIAL_USER: str = os.getenv("ADMIN_INITIAL_USER", "admin")
-    ADMIN_INITIAL_CLAVE: str = os.getenv("ADMIN_INITIAL_CLAVE", "admin1234")
+    ADMIN_INITIAL_USER: str = os.getenv("ADMIN_INITIAL_USER", "")
+    ADMIN_INITIAL_CLAVE: str = os.getenv("ADMIN_INITIAL_CLAVE", "")
     MAX_LOGIN_ATTEMPTS: int = int(os.getenv("MAX_LOGIN_ATTEMPTS", "3"))
+    # Datos del empleado administrador inicial
+    ADMIN_INITIAL_RUT: str = os.getenv("ADMIN_INITIAL_RUT", "")
+    ADMIN_INITIAL_NOMBRE: str = os.getenv("ADMIN_INITIAL_NOMBRE", "")
+    ADMIN_INITIAL_DIRECCION: str = os.getenv("ADMIN_INITIAL_DIRECCION", "")
+    ADMIN_INITIAL_TELEFONO: str = os.getenv("ADMIN_INITIAL_TELEFONO", "")
+    ADMIN_INITIAL_CORREO: str = os.getenv("ADMIN_INITIAL_CORREO", "")

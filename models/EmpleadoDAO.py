@@ -6,6 +6,7 @@ from config.database import Database
 from models.Empleado import empleado
 
 
+
 class EmpleadoDAO:
     """
     Data Access Object para la entidad Paciente.

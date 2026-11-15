@@ -1,5 +1,5 @@
 from models.Empleado import empleado
-
+from datetime import date
 class Proyecto:
     """
     La clase proyecto representa un proyecto en el que los trabajadores trabajan
@@ -63,10 +63,15 @@ class Proyecto:
 
     @fecha_inicio.setter
     def fecha_inicio(self, fecha_inicio: str) -> None:
-        if not isinstance(fecha_inicio, str) or not fecha_inicio.strip():
-            raise ValueError("La fecha de inicio del proyecto no puede estar vacía")
-        self._fecha_inicio = fecha_inicio.strip()
-        return self._fecha_inicio
+        if isinstance(fecha_inicio, str):
+            if not isinstance(fecha_inicio, str) or not fecha_inicio.strip():
+                raise ValueError("La fecha de inicio del proyecto no puede estar vacía")
+            fecha_inicio = date.fromisoformat(fecha_inicio)
+        elif not isinstance(fecha_inicio, date):
+            raise ValueError("La fecha de inicio no es válida.")
+        if fecha_inicio < date.today():
+            raise ValueError("La fecha de inicio no puede ser anterior a la fecha actual.")
+        self._fecha_inicio = fecha_inicio
     
     @property
     def fecha_fin(self):
@@ -74,10 +79,16 @@ class Proyecto:
     
     @fecha_fin.setter
     def fecha_fin(self, fecha_fin: str) -> None:
-        if not isinstance(fecha_fin, str) or not fecha_fin.strip():
-            raise ValueError("La fecha de inicio del proyecto no puede estar vacía")
-        self._fecha_fin = fecha_fin.strip()
-        return self._fecha_fin
+        if isinstance(fecha_fin, str):
+            if not fecha_fin.strip():
+                raise ValueError("La fecha de fin del proyecto no puede estar vacía")
+            fecha_fin = date.fromisoformat(fecha_fin)
+
+        elif not isinstance(fecha_fin, date):
+            raise ValueError("La fecha de fin no es válida.")
+
+        self._fecha_fin = fecha_fin
+
     
     @property
     def ubicacion(self):
@@ -87,4 +98,3 @@ class Proyecto:
         if not isinstance(ubicacion, str) or not ubicacion.strip():
             raise ValueError("La ubicacion no puede estar vacia")
         self._ubicacion = ubicacion.strip()
-        return self._ubicacion

@@ -30,8 +30,12 @@ class ProyectoView:
         fecha_fin = input("Fecha de fin (YYYY-MM-DD): ")
         ubicacion = input("ingrese la ubicacion del proyecto: ")
 
-        proyecto = Proyecto(id_proyecto, nombre, descripcion, fecha_inicio, fecha_fin, ubicacion)
-
+        try:
+            proyecto = Proyecto(id_proyecto, nombre, descripcion, fecha_inicio, fecha_fin, ubicacion)
+        except ValueError as e:
+            print(f"Error al crear el proyecto: {e}")
+            return None
+        
         if ProyectoDAO.agregar_proyecto(proyecto):
             print("Proyecto agregado correctamente.")
             return proyecto

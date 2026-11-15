@@ -44,3 +44,25 @@ class ClimaView:
             f"\nProbabilidad de lluvia: {p.probabilidad_lluvia}%"
             f"\n======================================================"
             )
+            
+    @staticmethod
+    def seleccionar_proyecto(proyectos):
+        print("\n--- PROYECTOS REGISTRADOS ---")
+
+        if not proyectos:
+            print("No hay proyectos registrados.")
+            return None
+
+        for proyecto in proyectos:
+            print(
+                f"{proyecto.id_proyecto}.- "
+                f"{proyecto.nombre} | "
+                f"Ubicación: {proyecto.ubicacion}"
+            )
+
+        try:
+            id_proyecto = int(input("\nSeleccione el ID del proyecto: "))
+            return id_proyecto
+        except ValueError:
+            print("Debe ingresar un ID válido.")
+            return None

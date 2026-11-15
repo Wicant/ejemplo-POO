@@ -21,8 +21,8 @@ class ProyectoDAO:
             ,(proyecto_obj.id_proyecto, 
               proyecto_obj.nombre,
               proyecto_obj.descripcion,
-              proyecto_obj.fecha_inicio,
-              proyecto_obj.fecha_fin,
+              proyecto_obj.fecha_inicio.isoformat(),
+              proyecto_obj.fecha_fin.isoformat(),
               proyecto_obj.ubicacion))
             conn.commit()
             return True
@@ -46,8 +46,8 @@ class ProyectoDAO:
             fila["id_proyecto"],
             fila["nombre"],
             fila["descripcion"],
-            fila["fecha_inicio"],
-            fila["fecha_fin"],
+            fecha_inicio,
+            fecha_fin,
             fila["ubicacion"]
         )         
     @staticmethod
@@ -93,8 +93,8 @@ class ProyectoDAO:
                            WHERE id_proyecto = ?""", 
                            (proyecto_obj.nombre,
                             proyecto_obj.descripcion,
-                            proyecto_obj.fecha_inicio,
-                            proyecto_obj.fecha_fin,
+                            proyecto_obj.fecha_inicio.isoformat(),
+                            proyecto_obj.fecha_fin.isoformat(),
                             proyecto_obj.ubicacion,
                             proyecto_obj.id_proyecto))
             conn.commit()

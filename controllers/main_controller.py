@@ -5,6 +5,7 @@ from controllers.proyecto_controller import ProyectoController
 from controllers.tiempo_controller import TiempoController
 from controllers.informe_controller import InformeController
 from controllers.auth_controller import AuthController
+from controllers.clima_controller import ClimaController
 
 
 class MainController:
@@ -30,6 +31,8 @@ class MainController:
                 TiempoController.menu()
             elif opcion == 5:
                 InformeController.menu()
+            elif opcion == 6:
+                ClimaController.menu()
             elif opcion == 0:
                 print("\nSaliendo del sistema...")
                 break

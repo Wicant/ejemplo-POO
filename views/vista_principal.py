@@ -13,6 +13,7 @@ class MainView:
         print("4.- Gestion de Tiempo")
         print("5.- Gestion de Informes")
         print("6.- Consultar Pronóstico Climático")
+        print("7.- Consultar cambio de divisas")
         print("0.- Salir")
         print("="*30)
         return leer_numero("Seleccione una opción: ")

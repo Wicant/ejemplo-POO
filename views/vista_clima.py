@@ -14,8 +14,8 @@ class ClimaView:
 
         dias = input("¿Cuántos días de pronóstico desea consultar?: ")
 
-        if not dias.isdigit() or not 1 <= int(dias) <= 14:
-            print("Ingrese una cantidad de días entre 1 y 14.")
+        if not dias.isdigit() or not 1 <= int(dias) <= 3:
+            print("Ingrese una cantidad de días entre 1 y 3.")
             return
 
         print(f"\nConsultando pronóstico para {ubicacion}...")

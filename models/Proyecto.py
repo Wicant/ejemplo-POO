@@ -28,7 +28,6 @@ class Proyecto:
         if not isinstance(value, int) or value <= 0:
             raise ValueError("El ID del departamento debe ser un número entero mayor a 0.")
         self._id_proyecto = value
-        return self._id_proyecto
 
     
     @property
@@ -40,7 +39,6 @@ class Proyecto:
         if not isinstance(nombre, str) or not nombre.strip():
             raise ValueError("El nombre del proyecto no puede estar vacío")
         self._nombre = nombre.strip()
-        return self._nombre
 
     """Descripcion: Representamos la descripcion del proyecto"""
 
@@ -53,7 +51,6 @@ class Proyecto:
         if not isinstance(descripcion, str) or not descripcion.strip():
             raise ValueError("La descripción del proyecto no puede estar vacía")
         self._descripcion = descripcion.strip()
-        return self._descripcion
 
     """Fecha de inicio: Representamos la fecha de inicio del proyecto"""
     

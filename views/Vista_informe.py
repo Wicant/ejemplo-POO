@@ -5,7 +5,6 @@ class InformeView:
     def mostrar_empleados():
         datos = InformeDAO.obtener_empleado()
         if not datos:
-            print("No hay datos para mostrar.")
             return
 
         print("\n--- INFORME DE EMPLEADOS ---")

@@ -119,5 +119,3 @@ class ProyectoDAO:
             return False
         finally:
             conn.close()
-            
-    

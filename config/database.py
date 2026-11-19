@@ -115,23 +115,17 @@ class Database:
                 """
             )
             
-            #cursor.execute(
-                #"""
-                #CREATE TABLE IF NOT EXISTS clima(
-                    #id_clima                        INTEGER PRIMARY KEY AUTOINCREMENT,
-                    #id_proyecto                     INTEGER,
-                    #ubicacion                       TEXT, 
-                    #temperatura_minima              REAL NOT NULL,
-                    #temperatura_maxima              REAL NOT NULL, 
-                    #humedad                         INTEGER NOT NULL,
-                    #condicion                       TEXT NOT NULL,
-                    #probabilidad_lluvia             INTEGER,
-                    #fecha_consulta                  DATETIME NOT NULL,
-                    #fecha_pronostico                DATETIME NOT NULL,
-                    #FOREIGN KEY (id_proyecto) REFERENCES proyecto(id_proyecto) ON DELETE SET NULL                   
-                #)
-                #""
-            #)
+            cursor.execute(
+                """
+                CREATE TABLE IF NOT EXISTS conversion_moneda(
+                    id_cotizacion              INTEGER PRIMARY KEY AUTOINCREMENT,
+                    codigo_moneda              TEXT NOT NULL, 
+                    valor                      REAL NOT NULL, 
+                    fecha_cotizacion           TEXT NOT NULL,
+                    fecha_guardado             TEXT NOT NULL                  
+                )
+                """
+            )
             conn.commit()
         except sqlite3.Error as e: 
             print(f"Error al inicializar la base de datos: {e}")

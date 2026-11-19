@@ -1,6 +1,5 @@
 import re
 from typing import List, Tuple
-from models.climaDAO import ClimaDAO
 from datetime import datetime
 try:
     import requests
@@ -32,8 +31,8 @@ class ClimaServices:
     @classmethod
     def obtener_clima(cls, termino: str, dias : int) -> Tuple[List[clima], str]:
         termino_seguro = cls.sanitizar_termino(termino)
-        if not isinstance(dias, int) or not 1 <= dias <= 14:
-            return [], "La cantidad de días debe estar entre 1 y 14."
+        if not isinstance(dias, int) or not 1 <= dias <= 3:
+            return [], "La cantidad de días debe estar entre 1 y 3."
         if not REQUESTS_AVAILABLE:
             return cls._manejar_contingencia(
                 termino_seguro, 

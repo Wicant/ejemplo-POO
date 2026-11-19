@@ -5,10 +5,6 @@ try:
     from dotenv import load_dotenv
     env_path = Path(__file__).resolve().parent.parent / ".env"
     load_dotenv(dotenv_path=env_path, override=True)
-    print("Ruta del .env:", env_path)
-    print("¿Existe el .env?:", env_path.exists())
-    print("¿Se cargó API_CLIMA_URL?:", bool(os.getenv("API_CLIMA_URL")))
-    print("¿Se cargó API_KEY_CLIMA?:", bool(os.getenv("API_KEY_CLIMA")))
 except ImportError:
     pass
 
@@ -33,5 +29,6 @@ class Settings:
     ADMIN_INITIAL_TELEFONO: str = os.getenv("ADMIN_INITIAL_TELEFONO", "")
     ADMIN_INITIAL_CORREO: str = os.getenv("ADMIN_INITIAL_CORREO", "")
 
-print("URL desde Settings:", Settings.API_CLIMA_URL)
-print("¿Clave desde Settings?:", bool(Settings.API_KEY_CLIMA))
+    API_MONEDA_URL: str = os.getenv("API_MONEDA_URL", "https://si3.bcentral.cl/SieteRestWS/SieteRestWS.ashx")
+    API_KEY_MONEDA: str = os.getenv("API_KEY_MONEDA", "")
+    REQUEST_TIMEOUT_MONEDA: int = int(os.getenv("REQUEST_TIMEOUT_MONEDA", "5"))
